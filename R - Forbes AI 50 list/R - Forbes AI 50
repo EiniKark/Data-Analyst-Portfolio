@@ -1,0 +1,61 @@
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+# Load the dataset
+df <- read_csv("forbes_ai50_list.csv")
+
+# Convert Funding column to numeric by removing '$' and 'M/B' suffixes
+df$Funding <- gsub("[$,]", "", df$Funding)
+df$Funding <- ifelse(grepl("B", df$Funding), 
+                      as.numeric(gsub("B", "", df$Funding)) * 1000, 
+                      as.numeric(gsub("M", "", df$Funding)))
+
+# 1. Investment Trends
+# Total and average funding
+total_funding <- sum(df$Funding, na.rm = TRUE)
+average_funding <- mean(df$Funding, na.rm = TRUE)
+print(paste("Total funding: ", total_funding, "M"))
+print(paste("Average funding: ", round(average_funding, 2), "M"))
+
+# Funding distribution visualization
+ggplot(df, aes(x = Funding)) +
+  geom_histogram(binwidth = 200, fill = "blue", alpha = 0.7) +
+  labs(title = "Funding Distribution", x = "Funding (Million USD)", y = "Count")
+
+# 2. Industry Focus
+# Count occurrences of different industries
+df_industry <- df %>% 
+  count(`What it Does`, sort = TRUE)
+print(df_industry)
+
+# Bar plot of industry distribution
+ggplot(df_industry, aes(x = reorder(`What it Does`, n), y = n)) +
+  geom_bar(stat = "identity", fill = "purple", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Industry Representation", x = "Industry", y = "Count")
+
+# 3. Geographical Analysis
+# Count of companies by headquarters
+df_location <- df %>% 
+  count(Headquarters, sort = TRUE)
+print(df_location)
+
+# Top AI hubs bar plot
+ggplot(df_location, aes(x = reorder(Headquarters, n), y = n)) +
+  geom_bar(stat = "identity", fill = "green", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Top AI Hubs", x = "Location", y = "Number of Companies")
+
+# 4. Company Growth Patterns
+# Founding year distribution
+ggplot(df, aes(x = `Year Founded`)) +
+  geom_histogram(binwidth = 1, fill = "red", alpha = 0.7) +
+  labs(title = "Distribution of Founding Years", x = "Year Founded", y = "Count")
+
+# Funding trends over years
+ggplot(df, aes(x = `Year Founded`, y = Funding)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Funding Over Time", x = "Year Founded", y = "Funding (Million USD)")
