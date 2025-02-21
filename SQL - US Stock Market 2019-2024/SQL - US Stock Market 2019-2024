@@ -1,0 +1,81 @@
+
+
+-- 1. Market Trends and Performance
+-- How have stock indices (S&P 500, Nasdaq 100) performed from 2019 to 2024?
+SELECT Date, S_P_500_Price, Nasdaq_100_Price
+FROM stock_market_data
+ORDER BY Date ASC;
+
+-- Which commodities have shown the highest volatility in price over time?
+SELECT 'Gold' AS Commodity, MAX(Gold_Price) - MIN(Gold_Price) AS Price_Volatility FROM stock_market_data
+UNION ALL
+SELECT 'Silver', MAX(Silver_Price) - MIN(Silver_Price) FROM stock_market_data
+UNION ALL
+SELECT 'Crude Oil', MAX(Crude_oil_Price) - MIN(Crude_oil_Price) FROM stock_market_data
+UNION ALL
+SELECT 'Natural Gas', MAX(Natural_Gas_Price) - MIN(Natural_Gas_Price) FROM stock_market_data;
+
+-- What are the key trends in cryptocurrency prices (Bitcoin, Ethereum) over the years?
+SELECT Date, Bitcoin_Price, Ethereum_Price
+FROM stock_market_data
+ORDER BY Date ASC;
+
+-- How have tech stocks (Apple, Microsoft, Tesla, Nvidia) performed compared to the broader market?
+SELECT Date, Apple_Price, Microsoft_Price, Tesla_Price, Nvidia_Price, S_P_500_Price
+FROM stock_market_data
+ORDER BY Date ASC;
+
+-- 2. Correlation Analysis
+-- Is there a correlation between oil prices and stock market performance?
+SELECT CORR(Crude_oil_Price, S_P_500_Price) AS Oil_Stock_Correlation
+FROM stock_market_data;
+
+-- How does the price of gold behave relative to stock indices in times of market downturns?
+SELECT Date, Gold_Price, S_P_500_Price
+FROM stock_market_data
+WHERE S_P_500_Price < (SELECT AVG(S_P_500_Price) FROM stock_market_data)
+ORDER BY Date ASC;
+
+-- Are cryptocurrency prices correlated with major stock indices?
+SELECT CORR(Bitcoin_Price, S_P_500_Price) AS BTC_Stock_Correlation,
+       CORR(Ethereum_Price, S_P_500_Price) AS ETH_Stock_Correlation
+FROM stock_market_data;
+
+-- 3. Trading Volume Insights
+-- Which assets exhibit the highest trading volumes over time?
+SELECT 'Apple' AS Asset, AVG(Apple_Vol) AS Avg_Volume FROM stock_market_data
+UNION ALL
+SELECT 'Tesla', AVG(Tesla_Vol) FROM stock_market_data
+UNION ALL
+SELECT 'Bitcoin', AVG(Bitcoin_Vol) FROM stock_market_data
+UNION ALL
+SELECT 'Gold', AVG(Gold_Vol) FROM stock_market_data
+ORDER BY Avg_Volume DESC;
+
+-- Are there noticeable spikes in volume associated with specific market events?
+SELECT Date, Apple_Vol, Tesla_Vol, Bitcoin_Vol, Gold_Vol
+FROM stock_market_data
+WHERE Apple_Vol > (SELECT AVG(Apple_Vol) * 1.5 FROM stock_market_data)
+   OR Tesla_Vol > (SELECT AVG(Tesla_Vol) * 1.5 FROM stock_market_data)
+   OR Bitcoin_Vol > (SELECT AVG(Bitcoin_Vol) * 1.5 FROM stock_market_data)
+   OR Gold_Vol > (SELECT AVG(Gold_Vol) * 1.5 FROM stock_market_data)
+ORDER BY Date ASC;
+
+-- 4. Market Events Impact
+-- How did significant financial events (e.g., COVID-19 crash) impact asset prices?
+SELECT Date, S_P_500_Price, Gold_Price, Bitcoin_Price
+FROM stock_market_data
+WHERE Date BETWEEN '2020-02-01' AND '2020-06-01'
+ORDER BY Date ASC;
+
+-- Which stocks and commodities showed the strongest recovery after market crashes?
+SELECT Asset, MAX(Price) - MIN(Price) AS Recovery_Amount
+FROM (
+    SELECT 'S&P 500' AS Asset, S_P_500_Price AS Price FROM stock_market_data WHERE Date BETWEEN '2020-03-01' AND '2022-03-01'
+    UNION ALL
+    SELECT 'Gold', Gold_Price FROM stock_market_data WHERE Date BETWEEN '2020-03-01' AND '2022-03-01'
+    UNION ALL
+    SELECT 'Bitcoin', Bitcoin_Price FROM stock_market_data WHERE Date BETWEEN '2020-03-01' AND '2022-03-01'
+) AS RecoveryData
+GROUP BY Asset
+ORDER BY Recovery_Amount DESC;
