@@ -1,6 +1,6 @@
 # Data-Analyst-Portfolio
 ## About
-Hi, I’m Eini! I have a Bachelor's Degree in Business Administration and a Data Analytics Professional Certificate from Google (Coursera). I'm currently pursuing an EPFL COS Diploma in Data Science. I have developed a passion for using data to uncover meaningful insights, particularly, where I am fascinated by the intersection of trends, societal impact and data-driven decision-making. I am excited to bring my technical and analytical skills to the field of data analytics as an aspiring data professional.
+Hi, I’m Eini Kärkkäinen! I'm originally from Finland and currently living in Switzerland. I have a Bachelor's Degree in Business Administration and a Data Analytics Professional Certificate from Google (Coursera). I'm currently pursuing an EPFL COS Diploma in Data Science. I have developed a passion for using data to uncover meaningful insights, particularly, where I am fascinated by the intersection of trends, societal impact and data-driven decision-making. I am excited to bring my technical and analytical skills to the field of data analytics as an aspiring data professional.
 
 During my professional experiences, I honed my ability to work with complex datasets and developed a keen eye for identifying patterns and trends. I have gained hands-on experience with tools like SQL, R, Power BI & Tableau, and Excel, as well as expertise in customer insights, revenue analysis, and strategic planning. 
 
