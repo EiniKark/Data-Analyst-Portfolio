@@ -16,7 +16,7 @@ My resume: [Here](https://github.com/EiniKark/Data-Analyst-Portfolio/blob/654b7a
 
 1. [About](#about)
 2. [Portfolio Projects](#portfolio-projects)
-   - [Python - AI Regulations and Governance](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/Python%20-%20AI%20Regulations%20and%20Governance)
+   - [Python - California Wildfire 2025](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/Python%20-%20California%20Wildfire%202025)
    - [R - Forbes AI 50 List](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/R%20-%20Forbes%20AI%2050%20list)
    - [SQL - US Stock Market 2019-2024](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/SQL%20-%20US%20Stock%20Market%202019-2024)
 3. [Power BI](https://einikarkkainen.myportfolio.com/)
@@ -25,7 +25,8 @@ My resume: [Here](https://github.com/EiniKark/Data-Analyst-Portfolio/blob/654b7a
 
 
 ## Portfolio Projects
-### [Python - AI Regulations and Governance](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/Python%20-%20AI%20Regulations%20and%20Governance)
+### [Python - California Wildfire 2025](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/Python%20-%20California%20Wildfire%202025)
+This project analyzes fire incident data across various locations in California, focusing on the impact of fires on different types of structures. The dataset includes details such as damage levels, location information (street, city, zip code), structure types, construction materials, and fire response actions. The goal is to uncover trends in fire damage, identify vulnerable areas, and evaluate the effectiveness of fire response strategies.
 ### [R - Forbes AI 50 List](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/R%20-%20Forbes%20AI%2050%20list)
 This project analyzes the Forbes AI 50 list, which highlights the top 50 private companies leveraging artificial intelligence in various industries. The dataset includes company names, their focus areas, funding received, founding years, and headquarters locations. The goal is to uncover trends in AI-driven innovation, investment distribution, and regional hubs for AI development.
 ### [SQL - US Stock Market 2019-2024](https://github.com/EiniKark/Data-Analyst-Portfolio/tree/main/SQL%20-%20US%20Stock%20Market%202019-2024)
