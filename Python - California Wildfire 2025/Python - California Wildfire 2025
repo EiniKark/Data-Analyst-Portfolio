@@ -1,0 +1,159 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('b8aeb030-140d-43d2-aa29-1a80862e3d62.csv')
+
+# Display the first few rows of the dataset
+print(df.head())
+
+# 1. Damage Analysis
+# Distribution of damage levels across different types of structures
+damage_distribution = df.groupby(['* Damage', '* Structure Type']).size().unstack(fill_value=0)
+print("Damage Distribution by Structure Type:")
+print(damage_distribution)
+
+# Plot the damage distribution
+damage_distribution.plot(kind='bar', stacked=True, figsize=(12, 6))
+plt.title('Damage Distribution by Structure Type')
+plt.xlabel('Damage Level')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 2. Geographical Analysis
+# Cities or counties with the highest number of fire incidents
+top_cities = df['City'].value_counts().head(10)
+print("Top 10 Cities with the Most Fire Incidents:")
+print(top_cities)
+
+# Plot the top cities
+top_cities.plot(kind='bar', figsize=(10, 5))
+plt.title('Top 10 Cities with the Most Fire Incidents')
+plt.xlabel('City')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 3. Structural Analysis
+# Most common construction materials used in affected structures
+construction_materials = df['* Roof Construction'].value_counts()
+print("Most Common Roof Construction Materials:")
+print(construction_materials)
+
+# Plot the construction materials
+construction_materials.plot(kind='bar', figsize=(10, 5))
+plt.title('Most Common Roof Construction Materials')
+plt.xlabel('Material')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 4. Temporal Analysis
+# Frequency of fire incidents by month and year
+df['Incident Start Date'] = pd.to_datetime(df['Incident Start Date'])
+df['Year'] = df['Incident Start Date'].dt.year
+df['Month'] = df['Incident Start Date'].dt.month
+
+# Fire incidents by year
+yearly_incidents = df['Year'].value_counts().sort_index()
+print("Fire Incidents by Year:")
+print(yearly_incidents)
+
+# Plot yearly incidents
+yearly_incidents.plot(kind='line', figsize=(10, 5))
+plt.title('Fire Incidents by Year')
+plt.xlabel('Year')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# Fire incidents by month
+monthly_incidents = df['Month'].value_counts().sort_index()
+print("Fire Incidents by Month:")
+print(monthly_incidents)
+
+# Plot monthly incidents
+monthly_incidents.plot(kind='bar', figsize=(10, 5))
+plt.title('Fire Incidents by Month')
+plt.xlabel('Month')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 5. Fire Response Analysis
+# Most common actions taken during fire incidents
+response_actions = df['Structure Defense Actions Taken'].value_counts()
+print("Most Common Fire Response Actions:")
+print(response_actions)
+
+# Plot response actions
+response_actions.plot(kind='bar', figsize=(10, 5))
+plt.title('Most Common Fire Response Actions')
+plt.xlabel('Action')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 6. Property Value Analysis
+# Correlation between assessed property value and damage extent
+df['Assessed Improved Value (parcel)'] = pd.to_numeric(df['Assessed Improved Value (parcel)'], errors='coerce')
+damage_value_corr = df.groupby('* Damage')['Assessed Improved Value (parcel)'].mean()
+print("Average Assessed Property Value by Damage Level:")
+print(damage_value_corr)
+
+# Plot the correlation
+damage_value_corr.plot(kind='bar', figsize=(10, 5))
+plt.title('Average Assessed Property Value by Damage Level')
+plt.xlabel('Damage Level')
+plt.ylabel('Average Assessed Value')
+plt.show()
+
+# 7. Utility and Commercial Structures
+# Impact of fire incidents on utility and commercial structures
+utility_commercial_damage = df[df['Structure Category'].isin(['Other Minor Structure', 'Nonresidential Commercial'])].groupby('* Damage').size()
+print("Damage to Utility and Commercial Structures:")
+print(utility_commercial_damage)
+
+# Plot the damage
+utility_commercial_damage.plot(kind='bar', figsize=(10, 5))
+plt.title('Damage to Utility and Commercial Structures')
+plt.xlabel('Damage Level')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 8. Community and Battalion Analysis
+# Communities or battalions with the highest number of fire incidents
+top_communities = df['Community'].value_counts().head(10)
+print("Top 10 Communities with the Most Fire Incidents:")
+print(top_communities)
+
+# Plot the top communities
+top_communities.plot(kind='bar', figsize=(10, 5))
+plt.title('Top 10 Communities with the Most Fire Incidents')
+plt.xlabel('Community')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 9. Fire Origin and Cause
+# Most common causes of fire incidents
+fire_causes = df['If Affected 1-9% - What started fire?'].value_counts()
+print("Most Common Causes of Fire Incidents:")
+print(fire_causes)
+
+# Plot the causes
+fire_causes.plot(kind='bar', figsize=(10, 5))
+plt.title('Most Common Causes of Fire Incidents')
+plt.xlabel('Cause')
+plt.ylabel('Number of Incidents')
+plt.show()
+
+# 10. Long-term Impact
+# Long-term impact on property values (example: comparing before and after fire incidents)
+# This would require additional data, such as property values before and after fires.
+# For now, we can analyze the assessed values of damaged properties.
+long_term_impact = df.groupby('* Damage')['Assessed Improved Value (parcel)'].mean()
+print("Average Assessed Property Value by Damage Level (Long-term Impact):")
+print(long_term_impact)
+
+# Plot the long-term impact
+long_term_impact.plot(kind='bar', figsize=(10, 5))
+plt.title('Average Assessed Property Value by Damage Level (Long-term Impact)')
+plt.xlabel('Damage Level')
+plt.ylabel('Average Assessed Value')
+plt.show()
